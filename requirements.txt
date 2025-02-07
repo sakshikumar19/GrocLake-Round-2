@@ -1,4 +1,4 @@
-groclake
+groclake==0.2.0
 streamlit
 plotly
 python-dotenv
