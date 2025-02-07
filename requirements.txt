@@ -1,6 +1,6 @@
 groclake
 streamlit
 plotly
-dotenv
+python-dotenv
 geopy
 subprocess
