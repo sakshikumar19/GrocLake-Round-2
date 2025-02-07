@@ -20,6 +20,10 @@ from agents.GuideAgent import GuideAgent
 
 load_dotenv()
 
+groclake_api_key = st.secrets["GROCLAKE_API_KEY"]
+groclake_account_id = st.secrets["GROCLAKE_ACCOUNT_ID"]
+weather_api_key = st.secrets["WEATHER_API_KEY"]
+
 class SmartFarmingAgents:
     def __init__(self):
         # Initialize GrocLake tools
