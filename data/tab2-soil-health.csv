@@ -1,0 +1,165 @@
+Region,Site_name,Soil_drainage,Soil_BD,Soil_type,MAT,MAP
+,Banaras Hindu U,Dry,1.35,Sandy loam,26.0,1190.0
+,Kumaun Himalaya,Dry,,Alluvial loam,22.9,1593.0
+,Kumaun Himalaya,Dry,1.09,Alluvial loam,,
+,Kumaun Himalaya,Dry,1.22,Alluvial loam,,
+,Kurukshetra,Dry,,Alluvial,24.5,661.0
+,Ujjain University,Dry,,Black cotton soil,25.2,928.0
+,Sambalpur University,Dry,1.55,Sandy loam,26.9,1448.0
+,,Dry,,,30.1,1100.0
+,Ujjain University,Dry,,Black cotton soil,25.2,928.0
+,Ujjain University,Dry,,Black cotton soil,25.2,928.0
+,Ujjain University,Dry,,Black cotton soil,25.2,928.0
+,Ujjain University,Dry,,Black cotton soil,25.2,928.0
+,Kurukshetra,Dry,,,24.5,661.0
+,Lailad,Dry,,Sandy loam (lateritic),,2200.0
+,,Dry,0.6,Sandy,,2488.0
+,,Dry,0.63,Sandy,,2488.0
+,,Dry,0.65,Sandy,,2488.0
+,,Dry,0.85,Sandy,,2488.0
+,,Dry,1.05,Sandy,,2488.0
+,,Dry,1.1,Sandy,,2488.0
+,,Dry,1.14,Sandy,,2488.0
+,Madurai,Dry,,Sandy loam (reddish-brown laterite),,
+,,Dry,1.21,Sandy,,2441.0
+Haryana,Siwaliks,Dry,1.31,,23.0,1069.0
+Haryana,Siwaliks,Dry,1.35,,23.0,1069.0
+Haryana,Siwaliks,Dry,1.41,,23.0,1069.0
+Haryana,Siwaliks,Dry,1.31,,23.0,1069.0
+Haryana,Siwaliks,Dry,1.35,,23.0,1069.0
+Haryana,Siwaliks,Dry,1.41,,23.0,1069.0
+Orissa,Sambalpur University,Dry,,,,1316.0
+Orissa,Ushakoti,Dry,,,,1316.0
+,Khurpatal,Dry,1.26,,,2312.0
+,Khurpatal,Dry,0.98,,,2312.0
+,Khurpatal,Dry,0.96,,,2312.0
+,Barah Patthar,Dry,1.12,,,2312.0
+,Barah Patthar,Dry,0.87,,,2312.0
+,Barah Patthar,Dry,0.82,,,2312.0
+,V.O.B.,Dry,0.6,,,1360.0
+,Katula,Dry,0.63,,,1360.0
+,Dakbungalow,Dry,0.65,,,1360.0
+,Latoli,Dry,0.85,,,1360.0
+,Sambalpur University,Dry,1.75,Sandy loam (red lateritic),,
+,Sambalpur University,Dry,1.75,Ultisol,,1345.0
+,Naukuchia Tal,Dry,1.05,Sandy loam (pale humults),,
+,Andaman-MNMF,Wet,,,,3180.0
+,Andaman-MXMF,Wet,,,,3180.0
+,Botanical Garden of Banaras Hindu University,Dry,,Inceptisol (sandy loam),26.0,1100.0
+,Botanical Garden of Banaras Hindu University,Dry,,Inceptisol (sandy loam),26.0,1100.0
+,Botanical Garden of Banaras Hindu University,Dry,,Inceptisol (sandy loam),26.0,1100.0
+,Botanical Garden of Banaras Hindu University,Dry,,Inceptisol (sandy loam),26.0,1100.0
+,Botanical Garden of Banaras Hindu University,Dry,,Inceptisol (sandy loam),26.0,1100.0
+,Botanical Garden of Banaras Hindu University,Dry,,Inceptisol (sandy loam),26.0,1100.0
+,Botanical Garden of Banaras Hindu University,Dry,,Inceptisol (sandy loam),26.0,1100.0
+,Botanical Garden of Banaras Hindu University,Dry,,Inceptisol (sandy loam),26.0,1100.0
+,Botanical Garden of Banaras Hindu University,Dry,,Inceptisol (sandy loam),26.0,1100.0
+,Botanical Garden of Banaras Hindu University,Dry,,Inceptisol (sandy loam),26.0,1100.0
+,,Dry,1.38,,,1090.0
+,,Dry,1.46,,,1090.0
+,Banobitan,Dry,,Loam (Red lateritic ultisol),,
+,Indian Botanic Garden,Dry,,Loam (Red lateritic ultisol),,
+,Chandra,Dry,,Loam (Red lateritic ultisol),,
+,Chilapata,Dry,,Loam (Red lateritic ultisol),,
+Orissa,,Dry,,,,1300.0
+Orissa,,Dry,,,,1300.0
+Orissa,,Dry,,,,1300.0
+,Central Soil and Water Conservation Research and Training Institute,Dry,,Loamy sand (Entisols),,725.0
+,Central Soil and Water Conservation Research and Training Institute,Dry,,Loamy sand (Entisols),,725.0
+,Central Soil and Water Conservation Research and Training Institute,Dry,,Loamy sand (Entisols),,725.0
+,Central Soil and Water Conservation Research and Training Institute,Dry,,Loamy sand (Entisols),,725.0
+,Central Soil and Water Conservation Research and Training Institute,Dry,,Loamy sand (Entisols),,725.0
+,,Dry,,Lateric loam,,
+,,Dry,,Lateric loam,,
+Sundarbans,Henry Island-LW,Wet,,,,1770.0
+Sundarbans,Jharkhali Island-LW,Wet,,,,1770.0
+Sundarbans,Henry Island-SW,Wet,,,,1770.0
+Sundarbans,Jharkhali Island-SW,Wet,,,,1770.0
+Sundarbans,Henry Island-BF,Wet,,,,1770.0
+Sundarbans,Jharkhali Island-BF,Wet,,,,1770.0
+Cuttack,,Dry,1.41,,28.0,1500.0
+Cuttack,,Dry,1.41,,28.0,1500.0
+Cuttack,,Dry,1.41,,28.0,1500.0
+Cuttack,,Dry,1.41,,28.0,1500.0
+Cuttack,,Dry,1.41,,28.0,1500.0
+Cuttack,,Dry,1.41,,28.0,1500.0
+Dhanbad,Indian School of Mines,Dry,,,22.0,1598.0
+Dhanbad,Indian School of Mines,Dry,,,22.0,1598.0
+Dhanbad,Indian School of Mines,Dry,,,22.0,1598.0
+Dhanbad,,Dry,,,22.0,1598.0
+Dhanbad,,Dry,,,22.0,1598.0
+Dhanbad,,Dry,,,22.0,1598.0
+Dhanbad,Vishwakarma Opencast Projects,Dry,,,22.0,1598.0
+Jharkhand,Dhanbad,Dry,,,,1598.0
+Jharkhand,Dhanbad,Dry,,,,1598.0
+Jharkhand,Dhanbad,Dry,,,,1598.0
+Jharkhand,Dhanbad,Dry,,,,1598.0
+Jharkhand,Dhanbad,Dry,,,,1598.0
+Jharkhand,Dhanbad,Dry,,,,1598.0
+Telangana,Shadnagar Campus,Dry,,,24.5,
+Anantnag,Kashmir Himalayas of district,Dry,0.59,,17.0,1289.0
+Anantnag,Kashmir Himalayas of district,Dry,0.44,,17.0,1289.0
+Anantnag,Kashmir Himalayas of district,Dry,0.49,,17.0,1289.0
+Anantnag,Kashmir Himalayas of district,Dry,0.55,,17.0,1289.0
+Anantnag,Kashmir Himalayas of district,Dry,0.59,,17.0,1289.0
+Anantnag,Kashmir Himalayas of district,Dry,0.44,,17.0,1289.0
+Anantnag,Kashmir Himalayas of district,Dry,0.49,,17.0,1289.0
+Anantnag,Kashmir Himalayas of district,Dry,0.55,,17.0,1289.0
+Varanasi,Banaras Hindu University,Dry,1.49,,,
+Varanasi,Banaras Hindu University,Dry,1.42,,,
+Kurukshetra,,Dry,1.06,,,
+Kurukshetra,,Dry,1.07,,,
+Kurukshetra,,Dry,1.14,,,
+Kurukshetra,,Dry,1.09,,,
+Kurukshetra,,Dry,1.12,,,
+Jharkhand,,Dry,1.86,lateritic,23.0,975.0
+Jharkhand,,Dry,1.71,lateritic,23.0,975.0
+Jharkhand,,Dry,1.52,lateritic,23.0,975.0
+Jharkhand,,Dry,1.73,lateritic,23.0,975.0
+Uttar Pradesh,River Ganga,Dry,1.8,,14.0,1100.0
+Uttar Pradesh,River Ganga,Dry,1.84,,14.0,1100.0
+Uttar Pradesh,River Ganga,Dry,1.63,,14.0,1100.0
+Uttar Pradesh,Katerniaghat Wildlife Sanctuary (Teak plantation),Dry,0.94,,22.0,1495.0
+Uttar Pradesh,Katerniaghat Wildlife Sanctuary (Sal forest),Dry,0.94,,22.0,1495.0
+Uttar Pradesh,Katerniaghat Wildlife Sanctuary (Dry mix forest),Dry,0.94,,22.0,1495.0
+Tamil Nadu,Nilgiris Biosphere Reserve,Dry,,,14.4,1847.0
+Tamil Nadu,Nilgiris Biosphere Reserve,Dry,,,14.4,1847.0
+Central Himalaya,Salami,Medium,,"Brown-black, podzolic",12.075,1971.0
+Central Himalaya,Barsal,Medium,,"Brown-black, podzolic",12.075,1971.0
+Central Himalaya,Fafanj,Medium,,"Brown-black, podzolic",12.075,1971.0
+Central Himalaya,Palli,Medium,,"Brown-black, podzolic",12.075,1971.0
+Central Himalaya,Mansuna,Medium,,"Brown-black, podzolic",12.075,1971.0
+Central Himalaya,Salami,Medium,,"Brown-black, podzolic",12.075,1971.0
+Central Himalaya,Barsal,Medium,,"Brown-black, podzolic",12.075,1971.0
+Central Himalaya,Fafanj,Medium,,"Brown-black, podzolic",12.075,1971.0
+Central Himalaya,Palli,Medium,,"Brown-black, podzolic",12.075,1971.0
+Central Himalaya,Mansuna,Medium,,"Brown-black, podzolic",12.075,1971.0
+Delhi,National Capital Territory of India,Dry,,Sandy loam,,
+Delhi,National Capital Territory of India,Dry,,Sandy loam,,
+Nazafgarh drain,National Capital Territory of India,Dry,,Loamy sand,,
+Yamuna flood plains,National Capital Territory of India,Dry,,Sandy loam,,
+Tamil Nadu state,Madurai,Dry,1.57,Typic Haplustepts,28.2,952.5
+Tamil Nadu state,Madurai,Dry,1.57,Typic Haplustepts,28.2,952.5
+Tamil Nadu state,Madurai,Dry,1.57,Typic Haplustepts,28.2,952.5
+Tamil Nadu state,Madurai,Dry,1.57,Typic Haplustepts,28.2,952.5
+Tamil Nadu state,Madurai,Dry,1.57,Typic Haplustepts,28.2,952.5
+Tamil Nadu state,Madurai,Dry,1.57,Typic Haplustepts,28.2,952.5
+Tamil Nadu state,Madurai,Dry,1.57,Typic Haplustepts,28.2,952.5
+Tamil Nadu state,Madurai,Dry,1.57,Typic Haplustepts,28.2,952.5
+"Varanasi, Uttar Pradesh, India",Botanical Garden of the Banaras Hindu University,Dry,,inceptisol,23.0,1100.0
+"Varanasi, Uttar Pradesh, India",Botanical Garden of the Banaras Hindu University,Dry,,inceptisol,23.0,1100.0
+"Varanasi, Uttar Pradesh, India",Botanical Garden of the Banaras Hindu University,Dry,,inceptisol,23.0,1100.0
+"Varanasi, Uttar Pradesh, India",Botanical Garden of the Banaras Hindu University,Dry,,inceptisol,23.0,1100.0
+"Varanasi, Uttar Pradesh, India",Botanical Garden of the Banaras Hindu University,Dry,,inceptisol,23.0,1100.0
+"Varanasi, Uttar Pradesh, India",Botanical Garden of the Banaras Hindu University,Dry,,inceptisol,23.0,1100.0
+"Varanasi, Uttar Pradesh, India",Botanical Garden of the Banaras Hindu University,Dry,,inceptisol,23.0,1100.0
+"Varanasi, Uttar Pradesh, India",Botanical Garden of the Banaras Hindu University,Dry,,inceptisol,23.0,1100.0
+"Varanasi, Uttar Pradesh, India",Botanical Garden of the Banaras Hindu University,Dry,,inceptisol,23.0,1100.0
+"Varanasi, Uttar Pradesh, India",Botanical Garden of the Banaras Hindu University,Dry,,inceptisol,23.0,1100.0
+"Varanasi, Uttar Pradesh, India",Botanical Garden of the Banaras Hindu University,Dry,,inceptisol,23.0,1100.0
+"Varanasi, Uttar Pradesh, India",Botanical Garden of the Banaras Hindu University,Dry,,inceptisol,23.0,1100.0
+Southeast coast of India,Pichavaram mangrove wetland,Wet,,Clayey,,1310.0
+Dehradun,Forest Research Institute,Dry,,,25.5,2020.0
+Uttarakhand ,Lal Tibba,Dry,,"Regosols, Leptosols, dolomitic",25.0,2150.0
+Varanasi,Assi drain,Wet,,,37.5,1050.0
+Assam,Barak Valley,Dry,,,25.4,2226.0

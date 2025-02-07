@@ -1,0 +1,6 @@
+groclake
+streamlit
+plotly
+dotenv
+geopy
+subprocess
