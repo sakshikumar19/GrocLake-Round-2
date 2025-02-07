@@ -73,6 +73,3 @@ Give a simple, friendly response that:
             # Get and add suggestion
             suggestion = self.get_tool_suggestion(prompt)
             st.session_state.guide_messages.append({"role": "assistant", "content": suggestion})
-            
-            # Refresh display
-            st.experimental_rerun()
