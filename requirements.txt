@@ -3,3 +3,4 @@ streamlit
 plotly
 python-dotenv
 geopy
+flask
