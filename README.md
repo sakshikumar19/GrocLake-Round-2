@@ -1,8 +1,8 @@
 # Smart Farming Multi-Agent System
 
-Welcome to the **Smart Farming Multi-Agent System**! This innovative system is designed to revolutionize modern agriculture by providing farmers and agricultural professionals with intelligent, data-driven insights and recommendations. By using the power of **Multi-Agent Systems (MAS)**, this platform integrates specialized AI agents to address various aspects of farming, from crop selection and soil health to market trends and climate predictions.
+Welcome to the **Smart Farming Multi-Agent System**! This innovative platform revolutionizes modern agriculture by providing farmers and agricultural professionals with intelligent, data-driven insights and recommendations. using the power of **Multi-Agent Systems (MAS)**, this system integrates specialized AI agents to address various aspects of farming, from crop selection and soil health to market trends and climate predictions.
 
-In today’s world, **smart farming** is no longer a luxury but a necessity. With the integration of IoT devices for real-time data processing, this system has the potential to become even more powerful and accessible. Currently, the system uses scraped data from the internet, but future enhancements could include live data feeds for more accurate and timely decision-making.
+In today’s world, **smart farming** is no longer a luxury but a necessity. While the system currently uses scraped data from the internet, future enhancements could include IoT devices for real-time data processing, making it even more powerful and accessible.
 
 ---
 
@@ -27,15 +27,18 @@ Farming is a complex domain with numerous interdependent factors, such as soil q
    - [Disease Detector](#disease-detector)
    - [Guide Agent](#guide-agent)
 3. [File Structure](#file-structure)
-4. [How to Use](#how-to-use)
-5. [Agentic Behaviors](#agentic-behaviors)
-6. [Conclusion](#conclusion)
+4. [Deployed Web App](#deployed-web-app)
+5. [How to Use](#how-to-use)
+6. [Agentic Behaviors](#agentic-behaviors)
+7. [Conclusion](#conclusion)
 
 ---
 
 ## Overview
 
-The **Smart Farming Multi-Agent System** is a sophisticated tool that uses artificial intelligence to provide actionable insights for farmers. The system is composed of **six core agents**, each specializing in a different aspect of farming, and a **Guide Agent** that helps users navigate the system. Together, these agents provide a comprehensive suite of tools for smart farming, enabling farmers to make data-driven decisions that optimize productivity, sustainability, and profitability.
+The **Smart Farming Multi-Agent System** is a cutting-edge AI-powered solution designed to revolutionize modern agriculture. At its core, it features **five specialized agents**, each focusing on a key aspect of farming, alongside a **Guide Agent** that ensures seamless user interaction. These agents work together to deliver precise, data-driven insights, helping farmers maximize **productivity, sustainability, and profitability**.
+
+What sets this system apart is its deep integration with **Groclake**, using its powerful suite of tools—**Modelake, Datalake, and Vectorlake**—to supercharge its capabilities. These tools are the foundation of the system’s **RAG (Retrieval-Augmented Generation) capabilities**, making the agents **truly autonomous**, not just basic rule-based systems. With Groclake, farmers get intelligent, adaptive, and real-time decision-making support, transforming traditional farming into a highly efficient, AI-driven operation.
 
 ---
 
@@ -70,7 +73,7 @@ The **Crop Advisor** is an intelligent AI-driven system designed to provide data
 
 #### How It Works
 
-1. Users input soil, climate, and nutrient conditions.
+1. Users input soil, climate, and nutrient conditions using the sliders.
 2. The agent searches for similar crop profiles using vector search.
 3. AI-driven reasoning refines recommendations with contextual insights.
 4. Users receive actionable recommendations, visualizations, and multilingual support.
@@ -117,7 +120,7 @@ The **Soil Analyst** is an AI-powered agent designed to analyze and improve soil
 
 #### Overview
 
-The **Market Strategist** is an AI-powered analytics tool designed to provide in-depth market intelligence for agricultural commodities. It offers real-time insights, price trends, risk analysis, and trading recommendations.
+The **Market Strategist** is an AI-powered analytics tool designed to provide in-depth market intelligence for agricultural commodities. It offers insights, price trends, risk analysis, and trading recommendations.
 
 #### Key Features
 
@@ -147,7 +150,7 @@ The **Market Strategist** is an AI-powered analytics tool designed to provide in
 ### Climate Predictor
 
 **File:** `agents/ClimateAnalysisAgent.py`  
-**UI Placeholder:** ![Climate Predictor UI](path/to/climate_predictor_ui.png)
+**UI:** ![Climate Predictor UI](images/climate.png)
 
 #### Overview
 
@@ -155,7 +158,7 @@ The **Climate Predictor** is an intelligent system designed to provide real-time
 
 #### Key Features
 
-- **Reflection:** Corrects and standardizes location names to avoid tool failures.
+- **Reflection:** Corrects and standardizes location names to avoid tool failures, ensuring accurate geographic lookup before making weather API calls.
 - **Tool Calling:** Utilizes the Tomorrow.io API to fetch real-time weather data.
 - **Reasoning:** Interprets weather conditions to generate AI-driven insights on agricultural impact and safety precautions.
 - **Orchestration:** Coordinates geolocation services, weather APIs, and AI-driven analysis to deliver a seamless experience.
@@ -194,16 +197,20 @@ The **Disease Detector** is an intelligent system designed to help farmers diagn
 3. AI analysis generates a structured report with potential diseases and management strategies.
 4. Actionable insights are provided, including treatment options and preventive measures.
 
+#### Cost Efficiency & Embedded Model
+
+Running Qwen locally or via a GPU-enabled API endpoint incurs significant costs. To optimize efficiency, we have embedded a pre-trained Hugging Face model instead of training a new one, ensuring high-quality analysis without unnecessary expenses.
+
 ---
 
 ### Guide Agent
 
 **File:** `agents/GuideAgent.py`  
-**UI Placeholder:** ![Guide Agent UI](path/to/guide_agent_ui.png)
+**UI:** ![Guide Agent UI](images/guide.png)
 
 #### Overview
 
-The **Guide Agent** is an AI-powered assistant designed to help farmers navigate the system and make informed decisions. It provides personalized recommendations and guidance, making modern farming more efficient and data-driven.
+The **Guide Agent** can be accessed by clicking the button: **🤔 Not sure where to start?** at the top of the interface. It opens a sidebar with a chat interface, serving as an AI-powered assistant to help farmers navigate the system and make informed decisions on the tools they should use. It provides personalized recommendations and guidance, making modern farming more efficient and data-driven.
 
 #### Key Capabilities
 
@@ -211,7 +218,7 @@ The **Guide Agent** is an AI-powered assistant designed to help farmers navigate
 - **Reflection:** Refines suggestions based on previous user queries.
 - **Task Planning:** Directs users to the most relevant farming tools based on their needs.
 - **Reasoning:** Analyzes user inputs and farming data to make intelligent decisions.
-- **Tool Calling:** Suggests and guides users to the best tools for crop advisory, soil health analysis, market insights, climate forecasting, and disease diagnosis.
+- **Tool Suggestion:** Suggests and guides users to the best tools for crop advisory, soil health analysis, market insights, climate forecasting, and disease diagnosis.
 - **Orchestration:** Coordinates various agricultural tools for a comprehensive advisory experience.
 
 #### How It Helps
@@ -242,18 +249,10 @@ data/
   tab2-soil-health.csv
   tab3-market_insights.csv
   tab5-crop_diseases.csv
-raw data/
-  _Food+Price+data_WFP_2020Dec23_Senegal_FoodPricesData.csv
-  Crop_recommendation.csv
-  srdb-data.csv
 .env
 .gitignore
-agriculture-industry.jpg
 app.py
-dataset_cleaning.ipynb
 download_modules.js
-idk.ipynb
-image.jpg
 package-lock.json
 package.json
 packages.txt
@@ -265,33 +264,41 @@ weather_fetch.mjs
 
 ---
 
-## How to Use
+## Deployed Web App
 
-### Option 1: Use the Deployed App
+Access the deployed application via the provided link:  
+[https://farm1ing.streamlit.app/](https://farm1ing.streamlit.app/)
 
-Access the deployed application via the provided link.
-https://farm1ing.streamlit.app/
+---
 
-### Option 2: Run Locally
+## How to Use Locally
 
 1. **Install Dependencies:** Run `pip install -r requirements.txt`.
-2. **Install npm:** Run `npm install node-fetch@2.6.7 moment@2.29.4 query-string@7.1.1`.
+2. **Install npm Packages:** Run `npm install node-fetch@2.6.7 moment@2.29.4 query-string@7.1.1`.
 3. **Run the Application:** Execute `streamlit run app.py`.
 4. **Navigate the Interface:** Use the tabs to access different agents and tools.
-5. **Follow the Guide:** Click the "Not sure where to start?" button for guidance from the **Guide Agent**.
+5. **Follow the Guide:** Click the **"Not sure where to start?"** button for guidance from the **Guide Agent**.
 
 ---
 
 ## Agentic Behaviors
 
-Each agent in the system exhibits one or more human-like behaviors, such as:
+Agentic behaviors are at the core of this system, enabling each agent to act autonomously, reason intelligently, and adapt to user needs. These behaviors ensure that the system provides context-aware, data-driven recommendations, making it a powerful tool for modern agriculture.
 
-- **Memory:** Stores data and past interactions to improve future performance.
-- **Reflection:** Analyzes past actions to refine strategies.
-- **Task Planning:** Plans sequences of actions to achieve specific goals.
-- **Reasoning:** Uses data and logic to make informed decisions.
-- **Tool Calling:** Interacts with external tools and APIs to gather data.
-- **Orchestration:** Coordinates with other agents to provide comprehensive solutions.
+As highlighted in the webinar by Plotch.ai, all agents were designed with human behavior in mind.
+
+![webinar image](images/agents.png)
+
+### Why Agentic Behavior is Useful
+
+- **Autonomy:** Agents can operate independently, reducing the need for constant user input.
+- **Adaptability:** Agents learn from past interactions, improving their recommendations over time.
+- **Specialization:** Each agent focuses on a specific task, ensuring high-quality insights in its domain.
+- **Collaboration:** Agents work together to provide a holistic solution, addressing multiple aspects of farming simultaneously.
+
+### The Future with IoT
+
+Integrating IoT devices into this system will enhance its capabilities by providing real-time data from sensors in the field. This will enable even more accurate and timely decision-making, paving the way for a smarter, more connected agricultural future.
 
 ---
 
