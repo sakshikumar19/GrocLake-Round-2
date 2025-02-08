@@ -113,23 +113,27 @@ def main():
     </style>
     """, unsafe_allow_html=True)
     
-    st.title("🌾 Smart Farming Assistant")
-    
     if 'show_guide' not in st.session_state:
         st.session_state.show_guide = False
-        
-    # Initialize agents
-    farming_agents = SmartFarmingAgents()
     
+    # Initialize agents early
+    farming_agents = SmartFarmingAgents()
     guide = farming_agents.guide_agent
     
-    # Update session state when button is clicked
+    # Create a container for the sidebar content
+    sidebar_container = st.sidebar.container()
+    
+    # Main title
+    st.title("🌾 Smart Farming Assistant")
+    
+    # Guide button in main area
     if st.button("🤔 Not sure where to start?"):
         st.session_state.show_guide = not st.session_state.show_guide
+        st.rerun()  # Force a rerun to update the sidebar
     
-    # Show guide in sidebar if requested
+    # Display guide in sidebar container if enabled
     if st.session_state.show_guide:
-        with st.sidebar:
+        with sidebar_container:
             guide.display_interface()
 
     # Tabbed interface for better navigation
