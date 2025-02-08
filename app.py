@@ -117,9 +117,7 @@ def main():
     
     if 'show_guide' not in st.session_state:
         st.session_state.show_guide = False
-    
-    st.title("🌾 Smart Farming Assistant")
-    
+        
     # Initialize agents
     farming_agents = SmartFarmingAgents()
     
