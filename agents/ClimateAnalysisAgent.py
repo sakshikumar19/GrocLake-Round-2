@@ -113,12 +113,11 @@ class ClimateAnalysisAgent:
                 st.error("Could not find coordinates for the location.")
                 return None
                 
-            # Get the absolute path to the script
             script_path = os.path.abspath(self.weather_fetch_script)
             project_root = os.path.dirname(script_path)
             
             try:
-                # Ensure npm packages are installed
+                # Install dependencies
                 subprocess.run(
                     ["npm", "install"],
                     cwd=project_root,
@@ -127,9 +126,9 @@ class ClimateAnalysisAgent:
                     text=True
                 )
                 
-                # Run the weather script
+                # Run with --experimental-modules flag
                 result = subprocess.run(
-                    ["node", script_path, "weather", location_data['coords']],
+                    ["node", "--experimental-modules", script_path, "weather", location_data['coords']],
                     cwd=project_root,
                     capture_output=True,
                     text=True,
@@ -145,10 +144,6 @@ class ClimateAnalysisAgent:
                 
             except subprocess.CalledProcessError as e:
                 st.error(f"Error executing weather script: {e.stderr}")
-                return None
-                
-            except json.JSONDecodeError as e:
-                st.error(f"Invalid data received from weather service: {e}")
                 return None
                 
         except Exception as e:

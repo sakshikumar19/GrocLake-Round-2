@@ -1,7 +1,8 @@
 {
+  "type": "module",
   "dependencies": {
-    "node-fetch": "2.6.7",
-    "moment": "2.29.4",
-    "query-string": "7.1.1"
+    "node-fetch": "^3.3.2",
+    "moment": "^2.29.4",
+    "query-string": "^8.1.0"
   }
 }
