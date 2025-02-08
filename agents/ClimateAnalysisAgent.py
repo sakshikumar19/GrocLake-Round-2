@@ -9,14 +9,15 @@ class ClimateAnalysisAgent:
     def __init__(self, vectorlake, modellake):
         self.vectorlake = vectorlake
         self.modellake = modellake
-        
+    
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+
         download_script = os.path.join(base_dir, "..", "download_modules.js")
         try:
             subprocess.run(["node", download_script], check=True)
         except subprocess.CalledProcessError as e:
             st.error(f"Failed to install Node.js modules: {e}")
 
-        base_dir = os.path.dirname(os.path.abspath(__file__))
         self.weather_fetch_script = os.path.join(base_dir, "..", "weather_fetch.mjs")
         self.geolocator = Nominatim(user_agent="climate_analysis_app")
         
