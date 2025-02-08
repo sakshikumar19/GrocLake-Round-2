@@ -115,16 +115,22 @@ def main():
     
     st.title("🌾 Smart Farming Assistant")
     
+    if 'show_guide' not in st.session_state:
+        st.session_state.show_guide = False
+    
+    st.title("🌾 Smart Farming Assistant")
+    
     # Initialize agents
     farming_agents = SmartFarmingAgents()
     
     guide = farming_agents.guide_agent
     
+    # Update session state when button is clicked
     if st.button("🤔 Not sure where to start?"):
-        st.session_state.show_guide = True
+        st.session_state.show_guide = not st.session_state.show_guide
     
     # Show guide in sidebar if requested
-    if st.session_state.get("show_guide", False):
+    if st.session_state.show_guide:
         with st.sidebar:
             guide.display_interface()
 
