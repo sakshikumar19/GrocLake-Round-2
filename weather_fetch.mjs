@@ -1,4 +1,5 @@
-import fetch from "node-fetch";
+import pkg from "node-fetch";
+const fetch = pkg.default || pkg;
 import queryString from "query-string";
 import moment from "moment";
 

@@ -100,9 +100,20 @@ class ClimateAnalysisAgent:
                 st.error("Could not find coordinates for the location.")
                 return None
             
+            # Get the absolute path to node_modules
+            base_dir = os.path.dirname(os.path.abspath(__file__))
+            node_modules_path = os.path.join(base_dir, "node_modules")
+            
+            # Set NODE_PATH environment variable
+            env = os.environ.copy()
+            env["NODE_PATH"] = node_modules_path
+            
             result = subprocess.run(
                 ["node", self.weather_fetch_script, "weather", location_data['coords']],
-                stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
+                stdout=subprocess.PIPE, 
+                stderr=subprocess.PIPE, 
+                text=True,
+                env=env
             )
 
             if result.returncode != 0:
@@ -111,11 +122,11 @@ class ClimateAnalysisAgent:
 
             weather_data = json.loads(result.stdout)
             return {'data': weather_data, 'location': location_data['display_name']}
-            
+                
         except Exception as e:
             st.error(f"An error occurred: {str(e)}")
             return None
-
+    
     def fetch_climate_events(self, location_name):
         try:
             location_data = self.get_coordinates(location_name)
