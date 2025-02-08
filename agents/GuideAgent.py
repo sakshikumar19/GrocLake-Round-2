@@ -1,4 +1,6 @@
 import streamlit as st
+from typing import List, Dict
+import datetime
 
 class GuideAgent:
     def __init__(self, modellake):
@@ -6,70 +8,148 @@ class GuideAgent:
         self.initialize_session_state()
         
     def initialize_session_state(self):
-        """Initialize chat history"""
+        """Initialize chat history and session variables"""
         if "guide_messages" not in st.session_state:
             st.session_state.guide_messages = []
             welcome_msg = {
                 "role": "assistant",
-                "content": """👋 Hi! I can help you find the right tool for your farming needs.
+                "content": """👋 Welcome to Smart Farming Assistant! I'm here to help guide you through our tools and answer any farming-related questions.
 
-Tell me what you're looking to do, and I'll suggest the best tool for you!
+Here are some ways I can help:
+🌱 Recommend suitable crops for your land
+🌍 Analyze soil health and nutrients
+📈 Check market trends and prices
+☁️ Plan for weather changes
+🌿 Diagnose plant diseases and issues
 
-For example:
-- "I want to know what crops to plant"
-- "My plants have yellow spots"
-- "Need to check market prices"
-- "Worried about soil quality"
-- "Want to plan for weather changes"
-"""
+What would you like to know more about?""",
+                "timestamp": datetime.datetime.now().strftime("%H:%M")
             }
             st.session_state.guide_messages.append(welcome_msg)
+            
+        # Add timestamps to existing messages if they don't have one
+        for message in st.session_state.guide_messages:
+            if "timestamp" not in message:
+                message["timestamp"] = datetime.datetime.now().strftime("%H:%M")
+            
+        if "conversation_context" not in st.session_state:
+            st.session_state.conversation_context = {
+                "last_tool_suggested": None,
+                "user_concerns": [],
+                "previous_topics": set()
+            }
 
     def get_tool_suggestion(self, user_message: str) -> str:
-        """Get a simple tool suggestion based on user's need"""
+        """Generate contextual tool suggestions based on user input"""
+        context = self._get_conversation_context()
+        
         suggestion_prompt = {
             "messages": [
                 {
                     "role": "system",
-                    "content": """You are a farming assistant. Based on the user's need, suggest ONE of these tools:
+                    "content": """You are an expert farming assistant with deep knowledge of agriculture. Your role is to:
+1. Understand the farmer's needs and concerns
+2. Provide helpful, practical advice
+3. Guide them to the most relevant tool while explaining its benefits
+4. Maintain a warm, supportive tone
 
-Tools:
-1. Crop Advisory (🌱) - For what to plant, when to plant, growing advice
-2. Soil Health (🌍) - For soil testing and nutrient analysis
-3. Market Insights (📈) - For prices and market trends
-4. Climate Analysis (☁️) - For weather planning
-5. Disease Diagnosis (🌿) - For plant health issues
+Available Tools:
+- Crop Advisory (🌱): Personalized crop recommendations, planting schedules, growing guides
+- Soil Health (🌍): Soil testing, nutrient analysis, improvement recommendations
+- Market Insights (📈): Price trends, market demand, profit optimization
+- Climate Analysis (☁️): Weather forecasting, climate pattern analysis
+- Disease Diagnosis (🌿): Plant health assessment, disease identification, treatment advice
 
-Give a simple, friendly response that:
-1. Shows you understand their need
-2. Suggests the most relevant tool
-3. Explains why that tool will help them"""
+Previous context: """ + context
                 },
                 {
                     "role": "user",
                     "content": user_message
                 }
             ],
-            "token_size": 1024
+            "token_size": 2048
         }
         
-        response = self.modellake.chat_complete(suggestion_prompt)
-        return response['answer']
+        try:
+            response = self.modellake.chat_complete(suggestion_prompt)
+            return response['answer']
+        except Exception as e:
+            st.error(f"Error generating response: {str(e)}")
+            return "I apologize, but I'm having trouble generating a response right now. Could you please try again?"
+
+    def _get_conversation_context(self) -> str:
+        """Build context string from conversation history"""
+        context = []
+        if st.session_state.conversation_context["last_tool_suggested"]:
+            context.append(f"Last tool suggested: {st.session_state.conversation_context['last_tool_suggested']}")
+        if st.session_state.conversation_context["user_concerns"]:
+            context.append(f"Previous concerns: {', '.join(st.session_state.conversation_context['user_concerns'][-3:])}")
+        return ". ".join(context)
+
+    def _update_conversation_context(self, user_message: str, response: str):
+        """Update conversation context with new information"""
+        # Extract tool mention from response
+        tools = ["Crop Advisory", "Soil Health", "Market Insights", "Climate Analysis", "Disease Diagnosis"]
+        for tool in tools:
+            if tool in response:
+                st.session_state.conversation_context["last_tool_suggested"] = tool
+                break
+                
+        # Store user concern
+        st.session_state.conversation_context["user_concerns"].append(user_message)
+        if len(st.session_state.conversation_context["user_concerns"]) > 5:
+            st.session_state.conversation_context["user_concerns"].pop(0)
 
     def display_interface(self):
-        """Display simple chat interface"""
+        """Display enhanced chat interface"""
         st.markdown("### 🧭 Smart Farming Guide")
         
-        # Display chat history
-        for message in st.session_state.guide_messages:
-            with st.chat_message(message["role"]):
-                st.markdown(message["content"])
+        # Chat container with custom styling
+        chat_container = st.container()
+        with chat_container:
+            for message in st.session_state.guide_messages:
+                with st.chat_message(message["role"]):
+                    st.markdown(message["content"])
+                    if "timestamp" in message:  # Check if timestamp exists
+                        st.caption(f"sent at {message['timestamp']}")
 
-        # Chat input
-        if prompt := st.chat_input("What do you need help with?"):
-            # Add user message
-            st.session_state.guide_messages.append({"role": "user", "content": prompt})
+        # Chat input with error handling
+        try:
+            if prompt := st.chat_input("Ask me anything about farming or our tools..."):
+                # Add user message
+                user_message = {
+                    "role": "user",
+                    "content": prompt,
+                    "timestamp": datetime.datetime.now().strftime("%H:%M")
+                }
+                st.session_state.guide_messages.append(user_message)
+                
+                # Get and add response
+                with st.spinner("Thinking..."):
+                    response = self.get_tool_suggestion(prompt)
+                    assistant_message = {
+                        "role": "assistant",
+                        "content": response,
+                        "timestamp": datetime.datetime.now().strftime("%H:%M")
+                    }
+                    st.session_state.guide_messages.append(assistant_message)
+                    
+                    # Update context
+                    self._update_conversation_context(prompt, response)
+                    
+                # Rerun to update display
+                st.rerun()
+                
+        except Exception as e:
+            st.error(f"Sorry, I encountered an error. Please try again or refresh the page. Error: {str(e)}")
             
-            # Get and add suggestion
-            suggestion = self.get_tool_suggestion(prompt)
-            st.session_state.guide_messages.append({"role": "assistant", "content": suggestion})
+        # Add clear chat button
+        if st.button("Clear Chat History"):
+            st.session_state.guide_messages = []
+            st.session_state.conversation_context = {
+                "last_tool_suggested": None,
+                "user_concerns": [],
+                "previous_topics": set()
+            }
+            self.initialize_session_state()
+            st.rerun()
