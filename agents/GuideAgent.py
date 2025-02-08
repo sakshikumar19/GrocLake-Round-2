@@ -13,16 +13,18 @@ class GuideAgent:
             st.session_state.guide_messages = []
             welcome_msg = {
                 "role": "assistant",
-                "content": """👋 Welcome to Smart Farming Assistant! I'm here to help guide you through our tools and answer any farming-related questions.
+                "content": """👋 Welcome! I'm your Smart Farming Assistant Guide. 
 
-Here are some ways I can help:
-🌱 Recommend suitable crops for your land
-🌍 Analyze soil health and nutrients
-📈 Check market trends and prices
-☁️ Plan for weather changes
-🌿 Diagnose plant diseases and issues
+I'll help you navigate to the right tool based on your needs. Whether you're looking to:
+• Plan your crops
+• Check your soil
+• Monitor markets
+• Track weather
+• Diagnose plant issues
 
-What would you like to know more about?""",
+Just tell me what you're trying to accomplish, and I'll guide you to the most suitable tool!
+
+What's on your mind today?""",
                 "timestamp": datetime.datetime.now().strftime("%H:%M")
             }
             st.session_state.guide_messages.append(welcome_msg)
@@ -38,27 +40,30 @@ What would you like to know more about?""",
                 "user_concerns": [],
                 "previous_topics": set()
             }
+        
+        # Add tab selection state
+        if "selected_tab" not in st.session_state:
+            st.session_state.selected_tab = 0
 
-    def get_tool_suggestion(self, user_message: str) -> str:
-        """Generate contextual tool suggestions based on user input"""
+    def get_tool_suggestion(self, user_message: str) -> tuple[str, int]:
+        """Generate contextual tool suggestions and return with tab index"""
         context = self._get_conversation_context()
         
         suggestion_prompt = {
             "messages": [
                 {
                     "role": "system",
-                    "content": """You are an expert farming assistant with deep knowledge of agriculture. Your role is to:
-1. Understand the farmer's needs and concerns
-2. Provide helpful, practical advice
-3. Guide them to the most relevant tool while explaining its benefits
-4. Maintain a warm, supportive tone
+                    "content": """You are an expert farming assistant focused on guiding users to the right tool. Your role is to:
+1. Understand the farmer's needs
+2. Direct them to the most relevant tool
+3. Provide a BRIEF explanation of why that tool is suitable
 
-Available Tools:
-- Crop Advisory (🌱): Personalized crop recommendations, planting schedules, growing guides
-- Soil Health (🌍): Soil testing, nutrient analysis, improvement recommendations
-- Market Insights (📈): Price trends, market demand, profit optimization
-- Climate Analysis (☁️): Weather forecasting, climate pattern analysis
-- Disease Diagnosis (🌿): Plant health assessment, disease identification, treatment advice
+Available Tools and their tab indices:
+- Crop Advisory (🌱) [Tab 0]: For crop selection and planting guidance
+- Soil Health (🌍) [Tab 1]: For soil testing and nutrient analysis
+- Market Insights (📈) [Tab 2]: For price trends and market analysis
+- Climate Analysis (☁️) [Tab 3]: For weather forecasting
+- Disease Diagnosis (🌿) [Tab 4]: For plant health issues
 
 Previous context: """ + context
                 },
@@ -72,10 +77,21 @@ Previous context: """ + context
         
         try:
             response = self.modellake.chat_complete(suggestion_prompt)
-            return response['answer']
+            # Determine which tab to open based on the response
+            tab_index = 0  # default to first tab
+            if "Soil Health" in response['answer']:
+                tab_index = 1
+            elif "Market" in response['answer']:
+                tab_index = 2
+            elif "Climate" in response['answer']:
+                tab_index = 3
+            elif "Disease" in response['answer']:
+                tab_index = 4
+            
+            return response['answer'], tab_index
         except Exception as e:
             st.error(f"Error generating response: {str(e)}")
-            return "I apologize, but I'm having trouble generating a response right now. Could you please try again?"
+            return "I apologize, but I'm having trouble generating a response right now. Could you please try again?", 0
 
     def _get_conversation_context(self) -> str:
         """Build context string from conversation history"""
@@ -110,12 +126,12 @@ Previous context: """ + context
             for message in st.session_state.guide_messages:
                 with st.chat_message(message["role"]):
                     st.markdown(message["content"])
-                    if "timestamp" in message:  # Check if timestamp exists
+                    if "timestamp" in message:
                         st.caption(f"sent at {message['timestamp']}")
 
         # Chat input with error handling
         try:
-            if prompt := st.chat_input("Ask me anything about farming or our tools..."):
+            if prompt := st.chat_input("How can I help you today?"):
                 # Add user message
                 user_message = {
                     "role": "user",
@@ -124,9 +140,9 @@ Previous context: """ + context
                 }
                 st.session_state.guide_messages.append(user_message)
                 
-                # Get and add response
+                # Get response and tab index
                 with st.spinner("Thinking..."):
-                    response = self.get_tool_suggestion(prompt)
+                    response, tab_index = self.get_tool_suggestion(prompt)
                     assistant_message = {
                         "role": "assistant",
                         "content": response,
@@ -136,6 +152,9 @@ Previous context: """ + context
                     
                     # Update context
                     self._update_conversation_context(prompt, response)
+                    
+                    # Set the selected tab
+                    st.session_state.selected_tab = tab_index
                     
                 # Rerun to update display
                 st.rerun()

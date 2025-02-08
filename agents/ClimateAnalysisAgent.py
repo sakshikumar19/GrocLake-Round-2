@@ -171,7 +171,7 @@ class ClimateAnalysisAgent:
         except Exception as e:
             return None
 
-    def generate_ai_insights(self, weather_data, events_data, lang_code='en'):
+    def generate_ai_insights(self, weather_data, events_data, location_name, lang_code='en'):
         try:
             # Get current weather values
             current_weather = {
@@ -192,7 +192,7 @@ class ClimateAnalysisAgent:
                     },
                     {
                         "role": "user",
-                        "content": f"""Current weather conditions in Varanasi:
+                        "content": f"""Current weather conditions in {lang_code}:
     Temperature: {current_weather['temperature']}
     Wind Speed: {current_weather['windSpeed']}
     Precipitation: {current_weather['precipitationIntensity']}
@@ -252,7 +252,7 @@ class ClimateAnalysisAgent:
                         .get('values', {}))
 
         with st.spinner("Generating climate insights..."):
-            insights = self.generate_ai_insights({'data': weather_values}, events_data, lang_code)
+            insights = self.generate_ai_insights({'data': weather_values}, events_data, location_name, lang_code)
         
         st.subheader(f"📍 Climate Analysis for {weather_data.get('location', location_name)}")
         
