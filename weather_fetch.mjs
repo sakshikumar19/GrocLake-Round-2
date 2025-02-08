@@ -1,7 +1,9 @@
-import pkg from "node-fetch";
-const fetch = pkg.default || pkg;
-import queryString from "query-string";
-import moment from "moment";
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+
+const fetch = require("node-fetch");
+const queryString = require("query-string");
+const moment = require("moment");
 
 const getTimelineURL = "https://api.tomorrow.io/v4/timelines";
 const apikey = "yrrmklvlF6XsNGzrtbQEQT1CNAzdCfBm";
@@ -39,7 +41,6 @@ const main = async () => {
       const result = await fetchWeatherData(coordinates);
       console.log(JSON.stringify(result));
     }
-    // Removed events API call due to 400 error
   } catch (error) {
     console.error(JSON.stringify({ error: error.message }));
     process.exit(1);
