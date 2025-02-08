@@ -40,30 +40,27 @@ What's on your mind today?""",
                 "user_concerns": [],
                 "previous_topics": set()
             }
-        
-        # Add tab selection state
-        if "selected_tab" not in st.session_state:
-            st.session_state.selected_tab = 0
 
-    def get_tool_suggestion(self, user_message: str) -> tuple[str, int]:
-        """Generate contextual tool suggestions and return with tab index"""
+    def get_tool_suggestion(self, user_message: str) -> str:
+        """Generate contextual tool suggestions based on user input"""
         context = self._get_conversation_context()
         
         suggestion_prompt = {
             "messages": [
                 {
                     "role": "system",
-                    "content": """You are an expert farming assistant focused on guiding users to the right tool. Your role is to:
-1. Understand the farmer's needs
-2. Direct them to the most relevant tool
-3. Provide a BRIEF explanation of why that tool is suitable
+                    "content": """You are an expert farming assistant with deep knowledge of agriculture. Your role is to:
+1. Understand the farmer's needs and concerns
+2. Provide helpful, practical advice
+3. Guide them to the most relevant tool while explaining its benefits. Your job is only to suggest the tool and nothing else!
+4. Maintain a warm, supportive tone
 
-Available Tools and their tab indices:
-- Crop Advisory (🌱) [Tab 0]: For crop selection and planting guidance
-- Soil Health (🌍) [Tab 1]: For soil testing and nutrient analysis
-- Market Insights (📈) [Tab 2]: For price trends and market analysis
-- Climate Analysis (☁️) [Tab 3]: For weather forecasting
-- Disease Diagnosis (🌿) [Tab 4]: For plant health issues
+Available Tools:
+- Crop Advisory (🌱): Personalized crop recommendations, planting schedules, growing guides
+- Soil Health (🌍): Soil testing, nutrient analysis, improvement recommendations
+- Market Insights (📈): Price trends, market demand, profit optimization
+- Climate Analysis (☁️): Weather forecasting, climate pattern analysis
+- Disease Diagnosis (🌿): Plant health assessment, disease identification, treatment advice
 
 Previous context: """ + context
                 },
@@ -77,21 +74,10 @@ Previous context: """ + context
         
         try:
             response = self.modellake.chat_complete(suggestion_prompt)
-            # Determine which tab to open based on the response
-            tab_index = 0  # default to first tab
-            if "Soil Health" in response['answer']:
-                tab_index = 1
-            elif "Market" in response['answer']:
-                tab_index = 2
-            elif "Climate" in response['answer']:
-                tab_index = 3
-            elif "Disease" in response['answer']:
-                tab_index = 4
-            
-            return response['answer'], tab_index
+            return response['answer']
         except Exception as e:
             st.error(f"Error generating response: {str(e)}")
-            return "I apologize, but I'm having trouble generating a response right now. Could you please try again?", 0
+            return "I apologize, but I'm having trouble generating a response right now. Could you please try again?"
 
     def _get_conversation_context(self) -> str:
         """Build context string from conversation history"""
@@ -126,12 +112,12 @@ Previous context: """ + context
             for message in st.session_state.guide_messages:
                 with st.chat_message(message["role"]):
                     st.markdown(message["content"])
-                    if "timestamp" in message:
+                    if "timestamp" in message:  # Check if timestamp exists
                         st.caption(f"sent at {message['timestamp']}")
 
         # Chat input with error handling
         try:
-            if prompt := st.chat_input("How can I help you today?"):
+            if prompt := st.chat_input("Ask me anything about farming or our tools..."):
                 # Add user message
                 user_message = {
                     "role": "user",
@@ -140,9 +126,9 @@ Previous context: """ + context
                 }
                 st.session_state.guide_messages.append(user_message)
                 
-                # Get response and tab index
+                # Get and add response
                 with st.spinner("Thinking..."):
-                    response, tab_index = self.get_tool_suggestion(prompt)
+                    response = self.get_tool_suggestion(prompt)
                     assistant_message = {
                         "role": "assistant",
                         "content": response,
@@ -152,9 +138,6 @@ Previous context: """ + context
                     
                     # Update context
                     self._update_conversation_context(prompt, response)
-                    
-                    # Set the selected tab
-                    st.session_state.selected_tab = tab_index
                     
                 # Rerun to update display
                 st.rerun()
