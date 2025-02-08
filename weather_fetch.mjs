@@ -1,6 +1,6 @@
-import fetch from "node-fetch";
-import queryString from "query-string";
-import moment from "moment";
+const fetch = require("node-fetch");
+const queryString = require("query-string");
+const moment = require("moment");
 
 const getTimelineURL = "https://api.tomorrow.io/v4/timelines";
 const apikey = "yrrmklvlF6XsNGzrtbQEQT1CNAzdCfBm";
@@ -16,18 +16,23 @@ const fetchWeatherData = async (coordinates) => {
     endTime: moment().utc().startOf("hour").add(2, "hours").toISOString(),
   });
 
-  const response = await fetch(`${getTimelineURL}?${params}`, {
-    headers: {
-      "Accept-Encoding": "gzip",
-      Accept: "application/json",
-    },
-  });
+  try {
+    const response = await fetch(`${getTimelineURL}?${params}`, {
+      headers: {
+        "Accept-Encoding": "gzip",
+        Accept: "application/json",
+      },
+    });
 
-  if (!response.ok) {
-    throw new Error(`Weather API error: ${response.status}`);
+    if (!response.ok) {
+      throw new Error(`Weather API error: ${response.status}`);
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error("Fetch error:", error);
+    throw error;
   }
-
-  return response.json();
 };
 
 const main = async () => {

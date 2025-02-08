@@ -9,18 +9,23 @@ class ClimateAnalysisAgent:
     def __init__(self, vectorlake, modellake):
         self.vectorlake = vectorlake
         self.modellake = modellake
-    
         base_dir = os.path.dirname(os.path.abspath(__file__))
-
-        download_script = os.path.join(base_dir, "..", "download_modules.js")
-        try:
-            subprocess.run(["node", download_script], check=True)
-        except subprocess.CalledProcessError as e:
-            st.error(f"Failed to install Node.js modules: {e}")
-
         self.weather_fetch_script = os.path.join(base_dir, "..", "weather_fetch.mjs")
-        self.geolocator = Nominatim(user_agent="climate_analysis_app")
         
+        # Install Node.js modules at startup
+        try:
+            project_root = os.path.dirname(self.weather_fetch_script)
+            subprocess.run(
+                ["npm", "install", "node-fetch@2.6.7", "moment@2.29.4", "query-string@7.1.1"],
+                cwd=project_root,
+                check=True,
+                capture_output=True
+            )
+        except subprocess.CalledProcessError as e:
+            st.error(f"Failed to install Node.js modules: {e.stderr}")
+        
+        self.geolocator = Nominatim(user_agent="climate_analysis_app") 
+               
         self.supported_languages = {
             'en': 'English',
             'hi': 'Hindi',
@@ -108,23 +113,33 @@ class ClimateAnalysisAgent:
                 st.error("Could not find coordinates for the location.")
                 return None
                 
-            # Get the absolute path to node_modules
-            base_dir = os.path.dirname(os.path.abspath(__file__))
-            
-            # Set NODE_PATH environment variable to include global modules
-            env = os.environ.copy()
-            env["NODE_PATH"] = "/usr/local/lib/node_modules"
+            # Get the absolute path to the script
+            script_path = os.path.abspath(self.weather_fetch_script)
+            project_root = os.path.dirname(script_path)
             
             try:
+                # Ensure npm packages are installed
+                subprocess.run(
+                    ["npm", "install"],
+                    cwd=project_root,
+                    check=True,
+                    capture_output=True,
+                    text=True
+                )
+                
+                # Run the weather script
                 result = subprocess.run(
-                    ["node", "--experimental-modules", self.weather_fetch_script, "weather", location_data['coords']],
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.PIPE,
+                    ["node", script_path, "weather", location_data['coords']],
+                    cwd=project_root,
+                    capture_output=True,
                     text=True,
-                    env=env,
                     check=True
                 )
                 
+                if result.stderr:
+                    st.error(f"Script output error: {result.stderr}")
+                    return None
+                    
                 weather_data = json.loads(result.stdout)
                 return {'data': weather_data, 'location': location_data['display_name']}
                 
@@ -132,14 +147,14 @@ class ClimateAnalysisAgent:
                 st.error(f"Error executing weather script: {e.stderr}")
                 return None
                 
-            except json.JSONDecodeError:
-                st.error("Invalid data received from weather service")
+            except json.JSONDecodeError as e:
+                st.error(f"Invalid data received from weather service: {e}")
                 return None
                 
         except Exception as e:
             st.error(f"An error occurred: {str(e)}")
             return None
-        
+            
     def fetch_climate_events(self, location_name):
         try:
             location_data = self.get_coordinates(location_name)
