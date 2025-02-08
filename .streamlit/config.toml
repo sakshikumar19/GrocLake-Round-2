@@ -1,2 +1,5 @@
+[runner]
+fastReruns = false
+
 [server]
-enableXsrfProtection = false
+runOnSave = false

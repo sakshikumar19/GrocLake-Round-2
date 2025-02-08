@@ -1,9 +1,6 @@
-import { createRequire } from "module";
-const require = createRequire(import.meta.url);
-
-const fetch = require("node-fetch");
-const queryString = require("query-string");
-const moment = require("moment");
+import fetch from "node-fetch";
+import queryString from "query-string";
+import moment from "moment";
 
 const getTimelineURL = "https://api.tomorrow.io/v4/timelines";
 const apikey = "yrrmklvlF6XsNGzrtbQEQT1CNAzdCfBm";

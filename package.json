@@ -1,13 +1,8 @@
 {
-  "name": "weather-fetch",
-  "version": "1.0.0",
   "type": "module",
-  "scripts": {
-    "preinstall": "npm install -g node-fetch query-string moment"
-  },
   "dependencies": {
-    "moment": "^2.30.1",
-    "node-fetch": "^2.6.9",
-    "query-string": "^7.1.3"
+    "node-fetch": "^3.3.2",
+    "query-string": "^8.1.0",
+    "moment": "^2.30.1"
   }
 }
